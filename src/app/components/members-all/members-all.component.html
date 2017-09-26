@@ -1,0 +1,36 @@
+<p><a routerLink="/members/add">New Member</a></p>
+
+<div id="deleteMsg"></div>
+  <div class="memberForm">
+  <table *ngIf="members; else noMember">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date Registered</th>
+        <th>Status</th>
+        <th>Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of members">
+        <td>{{ member.id }}</td>
+        <td>{{ member.fullName }}</td>
+        <td>{{ member.dateAdded | date: 'medium' }}</td>
+        <td>
+          {{ member.status | setStatus }}
+        </td>
+        <td>
+          <ul>
+            <li><a routerLink="/members/{{ member.id }}">View</a></li>
+            <li><a routerLink="/members/edit/{{ member.id }}">Edit</a></li>
+            <li><a (click)="delete(member.id)">Delete</a></li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noMember>
+ <p>No Member</p>
+</ng-template>

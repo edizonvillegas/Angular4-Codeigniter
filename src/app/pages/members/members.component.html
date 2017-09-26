@@ -1,0 +1,12 @@
+<h2>User Management</h2>
+<div [ngSwitch]="activePage">
+	<div *ngSwitchCase="2">
+		<app-member-manage></app-member-manage>
+	</div>
+	<div *ngSwitchCase="4">
+		<app-member-single></app-member-single>
+	</div>
+	<div *ngSwitchCase="5">
+		<app-members-all></app-members-all>
+	</div>
+</div>

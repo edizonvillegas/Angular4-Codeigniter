@@ -1,0 +1,22 @@
+<h3>View</h3>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Date Registered</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ member.id }}</td>
+      <td>{{ member.fullName }}</td>
+      <td>{{ member.dateAdded | date: 'medium' }}</td>
+      <td>
+        <span *ngIf="member.status == 1; else notActive">Active</span>
+        <ng-template #notActive>Inactive</ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,9 @@
+.archive {
+    background: #eee;
+}
+
+a {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
