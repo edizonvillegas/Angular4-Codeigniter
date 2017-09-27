@@ -35,11 +35,13 @@ export class AuthComponent implements OnInit {
     })
   }
   
-  onSubmit = function(formData) {
+  onSubmit = function(formData, loginMsg:boolean) {
     this._membersService.login(formData).subscribe((response) => {
-      if(response.text() ) {
+      if(response.text() == 'success') {
         localStorage.setItem('loginSessId', formData.acct_username);
         this._router.navigate(['/']);
+      } else {
+        this.loginMsg = true;
       }
     },
       (err) => console.log(err)

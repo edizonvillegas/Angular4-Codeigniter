@@ -15,7 +15,6 @@ import { MemberManageComponent } from './components/member-manage/member-manage.
 import { MemberSingleComponent } from './components/member-single/member-single.component';
 import { SetStatusPipe } from './pipes/status/set-status.pipe';
 import { AuthComponent } from './pages/auth/auth.component';
-
 let routes = [
   { path: '', component: DashboardComponent },
   { path: 'members', component: MembersComponent },

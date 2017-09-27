@@ -25,7 +25,6 @@ export class MembersAllComponent implements OnInit {
   searchText;
 
   ngOnInit() {
-
     this.myGroup = new FormGroup({
       searchText: new FormControl('')
     })
@@ -51,7 +50,11 @@ export class MembersAllComponent implements OnInit {
   }
 
   search(str) {
-    this._membersService.searchMember(str.searchText).subscribe(data => {this.members = data});
+    if(str.searchText.length > 0){
+      this._membersService.searchMember(str.searchText).subscribe(data => {this.members = data});
+    } else {
+      this._membersService.getMembers().subscribe(data => {this.members = data});
+    }
   }
 
 }
