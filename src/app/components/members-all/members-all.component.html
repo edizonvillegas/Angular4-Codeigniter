@@ -1,7 +1,9 @@
 <p><a routerLink="/members/add">New Member</a></p>
-
+<div [formGroup]="myGroup">
+  <input formControlName="searchText" [(ngModel)]="searchText" (keyup)="search(myGroup.value)">
+</div>
 <div id="deleteMsg"></div>
-  <div class="memberForm">
+<div class="memberForm">
   <table *ngIf="members; else noMember">
     <thead>
       <tr>
@@ -13,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let member of members">
+      <tr *ngFor="let member of members;">
         <td>{{ member.id }}</td>
         <td>{{ member.fullName }}</td>
         <td>{{ member.dateAdded | date: 'medium' }}</td>

@@ -14,12 +14,14 @@ import { MembersAllComponent } from './components/members-all/members-all.compon
 import { MemberManageComponent } from './components/member-manage/member-manage.component';
 import { MemberSingleComponent } from './components/member-single/member-single.component';
 import { SetStatusPipe } from './pipes/status/set-status.pipe';
+import { AuthComponent } from './pages/auth/auth.component';
 
 let routes = [
   { path: '', component: DashboardComponent },
   { path: 'members', component: MembersComponent },
   { path: 'members/:param', component: MembersComponent },
-  { path: 'members/:page/:id', component: MembersComponent }
+  { path: 'members/:page/:id', component: MembersComponent },
+  { path: 'auth', component: AuthComponent }
 ]
 
 @NgModule({
@@ -32,6 +34,7 @@ let routes = [
     MemberManageComponent,
     MemberSingleComponent,
     SetStatusPipe,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,7 @@ let routes = [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [MembersService, SetStatusPipe],
+  providers: [MembersService, SetStatusPipe, AuthComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

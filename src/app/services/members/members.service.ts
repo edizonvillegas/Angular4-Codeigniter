@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -38,5 +38,14 @@ export class MembersService {
   deleteUser(data) {
     return this._http.post('http://localhost/membership/main/deleteUser', data)
     .subscribe(data => data);
+  }
+
+  login(data) {
+    return this._http.post('http://localhost/membership/main/login', data);
+  }
+
+  searchMember(str) {
+    return this._http.get('http://localhost/membership/main/searchMember/'+str)
+    .map(res => res.json() );
   }
 }
