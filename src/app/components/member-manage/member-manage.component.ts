@@ -70,8 +70,10 @@ export class MemberManageComponent implements OnInit {
     $('#formMsg').text('member info updated!').delay(5000).fadeOut();
     this._membersService.editUser(formData);
   } else {
-      $('#formMsg').text('New member added!').delay(5000).fadeOut();
-      this._membersService.addUser(formData);
+      if( (formData.user_firstname && formData.user_lastname) ) {
+        this._membersService.addUser(formData);
+        $('#formMsg').text('New member added!').delay(5000).fadeOut();
+      }
     }
   }
 

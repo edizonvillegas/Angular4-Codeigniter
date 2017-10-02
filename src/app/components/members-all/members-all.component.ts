@@ -30,9 +30,7 @@ export class MembersAllComponent implements OnInit {
     })
 
     let page = this._router.snapshot.params['page'];
-    if (page != 'edit') {
-      this._membersService.getMembers().subscribe(data => {this.members = data});
-    }
+    page != 'edit' ? this._membersService.getMembers().subscribe(data => {this.members = data}) : "";
   }
 
   delete(id) {
@@ -51,7 +49,11 @@ export class MembersAllComponent implements OnInit {
 
   search(str) {
     if(str.searchText.length > 0){
-      this._membersService.searchMember(str.searchText).subscribe(data => {this.members = data});
+      this._membersService.searchMember(str.searchText).subscribe(data => {
+        this.members = data  
+      }, error => {
+        console.log('error')
+      });
     } else {
       this._membersService.getMembers().subscribe(data => {this.members = data});
     }

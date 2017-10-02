@@ -16,17 +16,17 @@
     </thead>
     <tbody>
       <tr *ngFor="let member of members;">
-        <td>{{ member.id }}</td>
-        <td>{{ member.fullName }}</td>
-        <td>{{ member.dateAdded | date: 'medium' }}</td>
+        <td>{{ member?.id }}</td>
+        <td>{{ member?.fullName }}</td>
+        <td>{{ member?.dateAdded | date: 'medium' }}</td>
         <td>
           {{ member.status | setStatus }}
         </td>
         <td>
           <ul>
-            <li><a routerLink="/members/{{ member.id }}">View</a></li>
-            <li><a routerLink="/members/edit/{{ member.id }}">Edit</a></li>
-            <li><a (click)="delete(member.id)">Delete</a></li>
+            <li><a routerLink="/members/{{ member?.id }}">View</a></li>
+            <li><a routerLink="/members/edit/{{ member?.id }}">Edit</a></li>
+            <li><a (click)="delete(member?.id)">Delete</a></li>
           </ul>
         </td>
       </tr>

@@ -18,18 +18,17 @@ export class MembersComponent implements OnInit {
   activePage:number;
 
   ngOnInit() {
-
-    if (!localStorage.getItem('loginSessId')) {
+    if (!localStorage.getItem('loginSessId'))
       this._router.navigate(['/auth']);
-    }
+    else
+      console.log(localStorage.getItem('loginSessId'));
 
     let page = this._Actrouter.snapshot.params['page'];
     let param = this._Actrouter.snapshot.params['param'];
 
-    if (param == 'add') {
+    if (param == 'add')
       this.activePage = 2;
-      console.log(param);
-    } else {
+    else {
       if(page == 'edit') {
         let id = this._Actrouter.snapshot.params['id'];
         id ? this.activePage = 2 : console.log('page not found');
@@ -39,7 +38,5 @@ export class MembersComponent implements OnInit {
       }
     }
   }
-
- 
 
 }

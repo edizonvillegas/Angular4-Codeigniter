@@ -1,10 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
 .archive {
-    background: #eee;
+  background: #eee;
 }
 
 a {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }

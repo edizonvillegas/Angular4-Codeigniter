@@ -13,16 +13,14 @@ export class AuthComponent implements OnInit {
   constructor(
     private _membersService: MembersService,
     private _router: Router
-  ) {
-    let loginSessId = localStorage.getItem('loginSessId');
-    if (loginSessId) {
-      this._router.navigate(['/members']);
-    }
-  }
+  ) {}
 
   loginForm;
 
   ngOnInit() {
+    let loginSessId = localStorage.getItem('loginSessId');
+    loginSessId ? this._router.navigate(['/members']) : "";
+    
     this.loginForm = new FormGroup({
       acct_username: new FormControl('', Validators.compose([
         Validators.required,
@@ -43,9 +41,7 @@ export class AuthComponent implements OnInit {
       } else {
         this.loginMsg = true;
       }
-    },
-      (err) => console.log(err)
-    );
+    });
   }
 
   logout() {
