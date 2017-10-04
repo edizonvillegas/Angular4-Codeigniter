@@ -3,6 +3,7 @@ import { MembersService } from '../../services/members/members.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SetStatusPipe } from '../../pipes/status/set-status.pipe';
+import { Observable, Subject } from 'rxjs/Rx';
 
 declare var jquery:any;
 declare var $ :any;
@@ -14,11 +15,24 @@ declare var $ :any;
 })
 export class MembersAllComponent implements OnInit {
 
+  name:string;
+  
+  public keyUp = new Subject<any>();
+
   constructor(
     private _membersService: MembersService,
     private _router: ActivatedRoute,
     private _setStatus: SetStatusPipe
-  ){ }
+  ){
+    const subscription = this.keyUp
+    .map(event => event.target.value)
+    .debounceTime(1000)
+    .distinctUntilChanged()
+    .flatMap(search => Observable.of(search).delay(500))
+    .subscribe(data => {
+      this.search(data)
+    });
+  }
 
   members;
   myGroup;
@@ -48,8 +62,8 @@ export class MembersAllComponent implements OnInit {
   }
 
   search(str) {
-    if(str.searchText.length > 0){
-      this._membersService.searchMember(str.searchText).subscribe(data => {
+    if(str.length > 0){
+      this._membersService.searchMember(str).subscribe(data => {
         this.members = data  
       }, error => {
         console.log('error')

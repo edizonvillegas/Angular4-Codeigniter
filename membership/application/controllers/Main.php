@@ -54,7 +54,7 @@ class Main extends CI_Controller {
 		$password = $request->acct_password;
 
 		$login = $this->Users_model->login($username);
-		if ($login) {
+		if ($login && $username == $login->acct_username) {
 			if (password_verify($password, $login->acct_password) ) {
 				echo "success";
 			}

@@ -1,6 +1,6 @@
 <p><a routerLink="/members/add">New Member</a></p>
-<div [formGroup]="myGroup">
-  <input formControlName="searchText" [(ngModel)]="searchText" (keyup)="search(myGroup.value)">
+<div>
+  <input type="text" (keyup)="keyUp.next($event)">
 </div>
 <div id="deleteMsg"></div>
 <div class="memberForm">

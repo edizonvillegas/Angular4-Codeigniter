@@ -45,14 +45,20 @@ class Users_model extends CI_Model {
 			DATE_FORMAT(user_date_added, '%M %d %Y %H:%i:%s') AS dateAdded,
 			user_status AS status
 		")
-		->like('user_lastname' , $str)
+		->like('user_firstname' , $str)
+		->or_like('user_lastname' , $str)
+		->where('user_status', 1)
 		->from($this->usersTable)
 		->get()
 		->result();
-		foreach($getUsers as $users) {
-			$rows[] = $users;
+		if ($getUsers) {
+			foreach($getUsers as $users) {
+				$rows[] = $users;
+			}
+			echo json_encode($rows);
+		} else {
+			echo json_encode (json_decode ("{id:null}"));
 		}
-		echo json_encode($rows);
 	}
 
 	function getUserById2($id) {
