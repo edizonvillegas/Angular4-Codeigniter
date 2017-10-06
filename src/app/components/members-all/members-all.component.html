@@ -1,10 +1,14 @@
-<p><a routerLink="/members/add">New Member</a></p>
+<ul>
+  <li><a routerLink="/members/add">New Member</a></li>
+  <li><a routerLink="/members/archives">Archives</a></li>
+</ul>
 <div>
   <input type="text" (keyup)="keyUp.next($event)">
 </div>
 <div id="deleteMsg"></div>
 <div class="memberForm">
-  <table *ngIf="members; else noMember">
+  <!-- <table> -->
+  <table *ngIf="(members$ | async)?.length>0; else noMember">
     <thead>
       <tr>
         <th>ID</th>
@@ -15,13 +19,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let member of members;">
+      <tr *ngFor="let member of members$ | async">
         <td>{{ member?.id }}</td>
         <td>{{ member?.fullName }}</td>
         <td>{{ member?.dateAdded | date: 'medium' }}</td>
-        <td>
-          {{ member.status | setStatus }}
-        </td>
+        <td>{{ member.status | setStatus }}</td>
         <td>
           <ul>
             <li><a routerLink="/members/{{ member?.id }}">View</a></li>

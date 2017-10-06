@@ -1,12 +1,15 @@
 <h2>User Management</h2>
 <div [ngSwitch]="activePage">
+	<div *ngSwitchCase="1">
+		<app-archives>Loading...</app-archives>
+	</div>
 	<div *ngSwitchCase="2">
-		<app-member-manage></app-member-manage>
+		<app-member-manage>Loading...</app-member-manage>
 	</div>
 	<div *ngSwitchCase="4">
-		<app-member-single></app-member-single>
+		<app-member-single>Loading...</app-member-single>
 	</div>
 	<div *ngSwitchCase="5">
-		<app-members-all></app-members-all>
+		<app-members-all>Loading...</app-members-all>
 	</div>
 </div>

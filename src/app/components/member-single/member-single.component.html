@@ -13,10 +13,7 @@
       <td>{{ member.id }}</td>
       <td>{{ member.fullName }}</td>
       <td>{{ member.dateAdded | date: 'medium' }}</td>
-      <td>
-        <span *ngIf="member.status == 1; else notActive">Active</span>
-        <ng-template #notActive>Inactive</ng-template>
-      </td>
+      <td>{{ member.status | setStatus }}</td>
     </tr>
   </tbody>
 </table>

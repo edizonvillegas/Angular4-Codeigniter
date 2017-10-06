@@ -26,7 +26,7 @@ export class MembersAllComponent implements OnInit {
   ){
     const subscription = this.keyUp
     .map(event => event.target.value)
-    .debounceTime(1000)
+    .debounceTime(500)
     .distinctUntilChanged()
     .flatMap(search => Observable.of(search).delay(500))
     .subscribe(data => {
@@ -34,7 +34,7 @@ export class MembersAllComponent implements OnInit {
     });
   }
 
-  members;
+  members$: Observable<any[]>;
   myGroup;
   searchText;
 
@@ -44,32 +44,28 @@ export class MembersAllComponent implements OnInit {
     })
 
     let page = this._router.snapshot.params['page'];
-    page != 'edit' ? this._membersService.getMembers().subscribe(data => {this.members = data}) : "";
+    page != 'edit' ? this.members$ = this._membersService.getMembers() : "";
   }
 
   delete(id) {
     this._membersService.deleteUser(id);
     var countTr = $('tr:not([style])').length - 1;
-    $("body").click(function(event){
+    $("body li:last-child()").click(function(event){
       if (countTr == 1) {
         $('table').hide("slow", function() {
           $('#deleteMsg').text('No Member');
         });
       }
-      $(event.target).parents('tr').hide();
-      $('#deleteMsg').text('member with id # '+id+' moved to archived!').delay(5000).fadeOut();
+      $(event.target).parents('tr').fadeOut();
+      $('#deleteMsg').text('member with id # '+id+' moved to archived!').show().delay(5000).fadeOut();
     });
   }
 
   search(str) {
     if(str.length > 0){
-      this._membersService.searchMember(str).subscribe(data => {
-        this.members = data  
-      }, error => {
-        console.log('error')
-      });
+      this.members$ = this._membersService.searchMember(str);
     } else {
-      this._membersService.getMembers().subscribe(data => {this.members = data});
+      this.members$ = this._membersService.getMembers();
     }
   }
 

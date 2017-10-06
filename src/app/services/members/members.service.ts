@@ -1,26 +1,25 @@
 import { Injectable } from '@angular/core';
-
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class MembersService {
 
-  constructor(
-    private _http: Http
-  ) {}
+  constructor(private _http: Http) {
+  }
   
-  getMembers() {
+  getMembers(): Observable<any> {
     return this._http.get('http://localhost/membership/main/getUsers')
       .map(response => response.json() );
   }
 
-  getMemberById(id) {
+  getMemberById(id:number): Observable<any> {
     return this._http.get('http://localhost/membership/main/getUserById/'+id)
     .map(res => res.json() );
   }
 
-  getMemberById2(id) {
+  getMemberById2(id:number) {
     return this._http.get('http://localhost/membership/main/getUserById2/'+id)
     .map(res => res.json() );
   }
@@ -40,12 +39,13 @@ export class MembersService {
     .subscribe(data => data);
   }
 
-  login(data) {
+  login(data:string) {
     return this._http.post('http://localhost/membership/main/login', data);
   }
 
-  searchMember(str) {
+  searchMember(str): Observable<any[]> {
     return this._http.get('http://localhost/membership/main/searchMember/'+str)
     .map(res => res.json() );
   }
+  
 }

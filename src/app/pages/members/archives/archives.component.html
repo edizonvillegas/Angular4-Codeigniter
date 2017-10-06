@@ -1,0 +1,34 @@
+
+  <div>
+    <input type="text" (keyup)="keyUp.next($event)">
+  </div>
+  <div id="deleteMsg"></div>
+  <div class="memberForm">
+    <table *ngIf="(archives$ | async)?.length>0; else noMember">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Date Registered</th>
+          <th>Status</th>
+          <th>Manage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let archive of archives$ | async">
+          <td>{{ archive?.id }}</td>
+          <td>{{ archive?.fullName }}</td>
+          <td>{{ archive?.dateAdded | date: 'medium' }}</td>
+          <td>{{ archive.status | setStatus }}</td>
+          <td>
+            <ul>
+              <li><a (click)="restore(archive?.id)">Restore</a></li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noMember>
+   <p>No member found!</p>
+  </ng-template>
