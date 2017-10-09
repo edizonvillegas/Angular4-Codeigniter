@@ -15,6 +15,11 @@ class Main extends CI_Controller {
 		print_r($getUsers);
 	}
 
+	function getUsersArchives() {
+		$getUsersArchives = $this->Users_model->getUsersArchives();
+		print_r($getUsersArchives);
+	}
+
 	function getUserById($id) {
 		$getUserById =  $this->Users_model->getUserById($id);
 		print_r($getUserById);
@@ -66,5 +71,10 @@ class Main extends CI_Controller {
 	function searchMember($str) {
 		$res = $this->Users_model->searchMember($str);
 		print_r($res);
+	}
+
+	function searchMemberFromArchives($str) {
+		$searchMemberFromArchives = $this->Users_model->searchMemberFromArchives($str);
+		print_r($searchMemberFromArchives);
 	}
 }

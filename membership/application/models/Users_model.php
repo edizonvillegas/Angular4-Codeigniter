@@ -22,6 +22,23 @@ class Users_model extends CI_Model {
 		echo json_encode($rows);
 	}
 
+	function getUsersArchives() {
+		$getUsersArchives = $this->db->select("
+			user_id AS id,
+			CONCAT(user_firstname, ' ', user_lastname) AS fullName,
+			DATE_FORMAT(user_date_added, '%M %d %Y %H:%i:%s') AS dateAdded,
+			user_status AS status
+		")
+		->where('user_status' , 0)
+		->from($this->usersTable)
+		->get()
+		->result();
+		foreach($getUsersArchives as $users) {
+			$rows[] = $users;
+		}
+		echo json_encode($rows);
+	}
+
 	function getUserById($id) {
 		$getUserById = $this->db
 			->select("
@@ -45,14 +62,37 @@ class Users_model extends CI_Model {
 			DATE_FORMAT(user_date_added, '%M %d %Y %H:%i:%s') AS dateAdded,
 			user_status AS status
 		")
+		->where('user_status', 1)
 		->like('user_firstname' , $str)
 		->or_like('user_lastname' , $str)
-		->where('user_status', 1)
 		->from($this->usersTable)
 		->get()
 		->result();
 		if ($getUsers) {
 			foreach($getUsers as $users) {
+				$rows[] = $users;
+			}
+			echo json_encode($rows);
+		} else {
+			echo json_encode (json_decode ("{id:null}"));
+		}
+	}
+
+	function searchMemberFromArchives($str) {
+		$searchMemberFromArchives = $this->db->select("
+			user_id AS id,
+			CONCAT(user_firstname, ' ', user_lastname) AS fullName,
+			DATE_FORMAT(user_date_added, '%M %d %Y %H:%i:%s') AS dateAdded,
+			user_status AS status
+		")
+		->like('user_firstname' , $str)
+		->or_like('user_lastname' , $str)
+		->where('user_status', 0)
+		->from($this->usersTable)
+		->get()
+		->result();
+		if ($searchMemberFromArchives) {
+			foreach($searchMemberFromArchives as $users) {
 				$rows[] = $users;
 			}
 			echo json_encode($rows);
